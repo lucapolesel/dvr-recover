@@ -1098,7 +1098,10 @@ class Main(object):
                     raise UnexpectedResultError('len(buf) != self.blocksize')
                 outf.write(buf)
             delta = timer.elapsed()
-            speed = float(chunk.block_size) / float(delta)
+            if delta > 0:
+                speed = float(chunk.block_size) / float(delta)
+            else:
+                speed = 0.0
             print 'Part #%i: %.2fs (%.2f blocks/s; %.2f MiB/s).' % \
                   (part,
                    delta,
